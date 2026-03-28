@@ -1,0 +1,812 @@
+{
+  "version": "beta3",
+  "orgInfo": {
+    "org": "Evil Corporation",
+    "dept": "Bad Intentions Group",
+    "audience": "Chief Evil Officer",
+    "analyst": "Elliot Alderson"
+  },
+  "riskOverrides": {
+    "internal": "high"
+  },
+  "rules": [
+    {
+      "id": "r_001",
+      "name": "DLP-USB/CDROM-PII-Block",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "removable"
+      ],
+      "enforcement": "block",
+      "desc": "Symantec DLP \u2014 endpoint agent, all workstations",
+      "created": "2025-01-06T09:00:00.000Z"
+    },
+    {
+      "id": "r_002",
+      "name": "DLP-USB/CDROM-PII-Monitor",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "removable"
+      ],
+      "enforcement": "monitor",
+      "desc": "CrowdStrike Falcon \u2014 secondary telemetry layer",
+      "created": "2025-01-06T09:05:00.000Z"
+    },
+    {
+      "id": "r_003",
+      "name": "DLP-USB/CDROM-MultiClassification-Block",
+      "classifIds": [
+        "restricted",
+        "regulated",
+        "supervisory"
+      ],
+      "classifId": "restricted",
+      "vectors": [
+        "removable"
+      ],
+      "enforcement": "block",
+      "desc": "Symantec DLP \u2014 restricted, regulated, supervisory data to removable media",
+      "created": "2025-01-06T09:10:00.000Z"
+    },
+    {
+      "id": "r_004",
+      "name": "DLP-USB/CDROM-MultiClassification-Monitor",
+      "classifIds": [
+        "customer",
+        "sourcecode"
+      ],
+      "classifId": "customer",
+      "vectors": [
+        "removable"
+      ],
+      "enforcement": "monitor",
+      "desc": "CrowdStrike \u2014 secondary coverage for customer data and source code",
+      "created": "2025-01-06T09:15:00.000Z"
+    },
+    {
+      "id": "r_005",
+      "name": "DLP-USB/CDROM-SourceCode-Block",
+      "classifIds": [
+        "sourcecode"
+      ],
+      "classifId": "sourcecode",
+      "vectors": [
+        "removable"
+      ],
+      "enforcement": "block",
+      "desc": "GitHub Advanced Security + Symantec \u2014 code repo detection patterns",
+      "created": "2025-01-06T09:20:00.000Z"
+    },
+    {
+      "id": "r_006",
+      "name": "DLP-Printing-PII-Block",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "printing"
+      ],
+      "enforcement": "block",
+      "desc": "Microsoft Purview \u2014 print job inspection, watermark enforcement",
+      "created": "2025-01-07T08:00:00.000Z"
+    },
+    {
+      "id": "r_007",
+      "name": "DLP-Printing-Restricted-Block",
+      "classifIds": [
+        "restricted",
+        "supervisory"
+      ],
+      "classifId": "restricted",
+      "vectors": [
+        "printing"
+      ],
+      "enforcement": "block",
+      "desc": "Microsoft Purview \u2014 restricted and supervisory print restriction",
+      "created": "2025-01-07T08:05:00.000Z"
+    },
+    {
+      "id": "r_008",
+      "name": "DLP-Printing-MultiClassification-Monitor",
+      "classifIds": [
+        "regulated",
+        "customer"
+      ],
+      "classifId": "regulated",
+      "vectors": [
+        "printing"
+      ],
+      "enforcement": "monitor",
+      "desc": "Microsoft Purview \u2014 log all regulated and customer print activity",
+      "created": "2025-01-07T08:10:00.000Z"
+    },
+    {
+      "id": "r_009",
+      "name": "DLP-Copy/Paste-PII-Block",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "clipboard"
+      ],
+      "enforcement": "block",
+      "desc": "Symantec DLP endpoint \u2014 clipboard intercept on sensitive pattern match",
+      "created": "2025-01-08T10:00:00.000Z"
+    },
+    {
+      "id": "r_010",
+      "name": "DLP-Copy/Paste-PII-Monitor",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "clipboard"
+      ],
+      "enforcement": "monitor",
+      "desc": "CrowdStrike Falcon \u2014 clipboard telemetry secondary layer",
+      "created": "2025-01-08T10:05:00.000Z"
+    },
+    {
+      "id": "r_011",
+      "name": "DLP-Copy/Paste-Restricted-Block",
+      "classifIds": [
+        "restricted",
+        "supervisory"
+      ],
+      "classifId": "restricted",
+      "vectors": [
+        "clipboard"
+      ],
+      "enforcement": "block",
+      "desc": "Symantec DLP \u2014 block clipboard for restricted and supervisory content",
+      "created": "2025-01-08T10:10:00.000Z"
+    },
+    {
+      "id": "r_012",
+      "name": "DLP-Copy/Paste-SourceCode-Monitor",
+      "classifIds": [
+        "sourcecode"
+      ],
+      "classifId": "sourcecode",
+      "vectors": [
+        "clipboard"
+      ],
+      "enforcement": "monitor",
+      "desc": "GitHub Advanced Security \u2014 clipboard telemetry for code patterns",
+      "created": "2025-01-08T10:15:00.000Z"
+    },
+    {
+      "id": "r_013",
+      "name": "DLP-Bluetooth-MultiClassification-Block",
+      "classifIds": [
+        "pii",
+        "restricted"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "bluetooth"
+      ],
+      "enforcement": "block",
+      "desc": "Symantec DLP \u2014 Bluetooth transfer disabled for PII and restricted data",
+      "created": "2025-01-09T11:00:00.000Z"
+    },
+    {
+      "id": "r_014",
+      "name": "DLP-Bluetooth-MultiClassification-Monitor",
+      "classifIds": [
+        "regulated",
+        "customer",
+        "supervisory"
+      ],
+      "classifId": "regulated",
+      "vectors": [
+        "bluetooth"
+      ],
+      "enforcement": "monitor",
+      "desc": "CrowdStrike \u2014 Bluetooth telemetry for regulated, customer, supervisory",
+      "created": "2025-01-09T11:05:00.000Z"
+    },
+    {
+      "id": "r_015",
+      "name": "DLP-Email-Net-PII-Monitor",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "email_net"
+      ],
+      "enforcement": "monitor",
+      "desc": "Proofpoint DLP \u2014 network-layer inspection, allows customer contact with logging",
+      "created": "2025-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "r_016",
+      "name": "DLP-Email-Net-PII-Block",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "email_net"
+      ],
+      "enforcement": "block",
+      "desc": "Proofpoint DLP \u2014 block bulk PII exfiltration, allow single-record customer comms",
+      "created": "2025-01-10T08:05:00.000Z"
+    },
+    {
+      "id": "r_017",
+      "name": "DLP-Email-Net-Restricted-Block",
+      "classifIds": [
+        "restricted",
+        "supervisory"
+      ],
+      "classifId": "restricted",
+      "vectors": [
+        "email_net"
+      ],
+      "enforcement": "block",
+      "desc": "Proofpoint DLP \u2014 hard block on restricted and supervisory outbound email",
+      "created": "2025-01-10T08:10:00.000Z"
+    },
+    {
+      "id": "r_018",
+      "name": "DLP-Email-Net-MultiClassification-Monitor",
+      "classifIds": [
+        "regulated",
+        "customer"
+      ],
+      "classifId": "regulated",
+      "vectors": [
+        "email_net"
+      ],
+      "enforcement": "monitor",
+      "desc": "Proofpoint DLP \u2014 monitor regulated and customer email, preserve customer comms",
+      "created": "2025-01-10T08:15:00.000Z"
+    },
+    {
+      "id": "r_019",
+      "name": "DLP-Email-EP-PII-Block",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "email_ep"
+      ],
+      "enforcement": "block",
+      "desc": "Microsoft Purview endpoint DLP \u2014 block PII attach/paste into Outlook",
+      "created": "2025-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "r_020",
+      "name": "DLP-Email-EP-PII-Monitor",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "email_ep"
+      ],
+      "enforcement": "monitor",
+      "desc": "Symantec endpoint DLP \u2014 secondary email intercept telemetry",
+      "created": "2025-01-10T09:05:00.000Z"
+    },
+    {
+      "id": "r_021",
+      "name": "DLP-Email-EP-Restricted-Block",
+      "classifIds": [
+        "restricted",
+        "supervisory"
+      ],
+      "classifId": "restricted",
+      "vectors": [
+        "email_ep"
+      ],
+      "enforcement": "block",
+      "desc": "Microsoft Purview \u2014 endpoint block on restricted/supervisory in Outlook, Teams",
+      "created": "2025-01-10T09:10:00.000Z"
+    },
+    {
+      "id": "r_022",
+      "name": "DLP-Email-EP-MultiClassification-Monitor",
+      "classifIds": [
+        "regulated",
+        "customer"
+      ],
+      "classifId": "regulated",
+      "vectors": [
+        "email_ep"
+      ],
+      "enforcement": "monitor",
+      "desc": "Microsoft Purview \u2014 monitor regulated and customer data at endpoint email layer",
+      "created": "2025-01-10T09:15:00.000Z"
+    },
+    {
+      "id": "r_023",
+      "name": "DLP-Proxy-PII-Block",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "proxy"
+      ],
+      "enforcement": "block",
+      "desc": "Zscaler ZIA \u2014 SSL inspection, block PII in HTTP/S body and params",
+      "created": "2025-01-13T08:00:00.000Z"
+    },
+    {
+      "id": "r_024",
+      "name": "DLP-Proxy-PII-Monitor",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "proxy"
+      ],
+      "enforcement": "monitor",
+      "desc": "Palo Alto NGFW \u2014 secondary network egress inspection",
+      "created": "2025-01-13T08:05:00.000Z"
+    },
+    {
+      "id": "r_025",
+      "name": "DLP-Proxy-Restricted-Block",
+      "classifIds": [
+        "restricted",
+        "supervisory"
+      ],
+      "classifId": "restricted",
+      "vectors": [
+        "proxy"
+      ],
+      "enforcement": "block",
+      "desc": "Zscaler ZIA \u2014 block restricted and supervisory outbound via proxy",
+      "created": "2025-01-13T08:10:00.000Z"
+    },
+    {
+      "id": "r_026",
+      "name": "DLP-Proxy-MultiClassification-Monitor",
+      "classifIds": [
+        "regulated",
+        "customer",
+        "internal"
+      ],
+      "classifId": "regulated",
+      "vectors": [
+        "proxy"
+      ],
+      "enforcement": "monitor",
+      "desc": "Zscaler ZIA \u2014 monitor regulated, customer, internal data at proxy layer",
+      "created": "2025-01-13T08:15:00.000Z"
+    },
+    {
+      "id": "r_027",
+      "name": "DLP-Web Upload-PII-Block",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "webupload"
+      ],
+      "enforcement": "block",
+      "desc": "Zscaler ZIA CASB + Symantec \u2014 block PII uploads to non-whitelisted web destinations",
+      "created": "2025-01-14T08:00:00.000Z"
+    },
+    {
+      "id": "r_028",
+      "name": "DLP-Web Upload-PII-Monitor",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "webupload"
+      ],
+      "enforcement": "monitor",
+      "desc": "Microsoft Defender for Cloud Apps \u2014 secondary upload telemetry",
+      "created": "2025-01-14T08:05:00.000Z"
+    },
+    {
+      "id": "r_029",
+      "name": "DLP-Web Upload-Restricted-Block",
+      "classifIds": [
+        "restricted",
+        "supervisory"
+      ],
+      "classifId": "restricted",
+      "vectors": [
+        "webupload"
+      ],
+      "enforcement": "block",
+      "desc": "Zscaler ZIA \u2014 block all web uploads for restricted and supervisory content",
+      "created": "2025-01-14T08:10:00.000Z"
+    },
+    {
+      "id": "r_030",
+      "name": "DLP-Web Upload-SourceCode-Block",
+      "classifIds": [
+        "sourcecode"
+      ],
+      "classifId": "sourcecode",
+      "vectors": [
+        "webupload"
+      ],
+      "enforcement": "block",
+      "desc": "GitHub Advanced Security + Zscaler \u2014 block code uploads to non-GitHub destinations",
+      "created": "2025-01-14T08:15:00.000Z"
+    },
+    {
+      "id": "r_031",
+      "name": "DLP-Web Upload-MultiClassification-Monitor",
+      "classifIds": [
+        "regulated",
+        "customer"
+      ],
+      "classifId": "regulated",
+      "vectors": [
+        "webupload"
+      ],
+      "enforcement": "monitor",
+      "desc": "Zscaler ZIA \u2014 monitor regulated and customer web uploads, allow customer portal comms",
+      "created": "2025-01-14T08:20:00.000Z"
+    },
+    {
+      "id": "r_032",
+      "name": "DLP-File Share-PII-Block",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "fileshare"
+      ],
+      "enforcement": "block",
+      "desc": "Varonis DatAdvantage \u2014 file share ACL enforcement, block PII to unauthorized shares",
+      "created": "2025-01-15T09:00:00.000Z"
+    },
+    {
+      "id": "r_033",
+      "name": "DLP-File Share-PII-Monitor",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "fileshare"
+      ],
+      "enforcement": "monitor",
+      "desc": "Microsoft Defender for Cloud Apps \u2014 OneDrive and SharePoint activity monitoring",
+      "created": "2025-01-15T09:05:00.000Z"
+    },
+    {
+      "id": "r_034",
+      "name": "DLP-File Share-Restricted-Block",
+      "classifIds": [
+        "restricted",
+        "supervisory"
+      ],
+      "classifId": "restricted",
+      "vectors": [
+        "fileshare"
+      ],
+      "enforcement": "block",
+      "desc": "Varonis \u2014 restricted and supervisory file shares locked to authorized groups only",
+      "created": "2025-01-15T09:10:00.000Z"
+    },
+    {
+      "id": "r_035",
+      "name": "DLP-File Share-SourceCode-Block",
+      "classifIds": [
+        "sourcecode"
+      ],
+      "classifId": "sourcecode",
+      "vectors": [
+        "fileshare"
+      ],
+      "enforcement": "block",
+      "desc": "GitHub Enterprise + Varonis \u2014 source code repos restricted, no SMB/FTP copy-out",
+      "created": "2025-01-15T09:15:00.000Z"
+    },
+    {
+      "id": "r_036",
+      "name": "DLP-File Share-MultiClassification-Monitor",
+      "classifIds": [
+        "regulated",
+        "customer"
+      ],
+      "classifId": "regulated",
+      "vectors": [
+        "fileshare"
+      ],
+      "enforcement": "monitor",
+      "desc": "Varonis \u2014 monitor regulated and customer data movement across file shares",
+      "created": "2025-01-15T09:20:00.000Z"
+    },
+    {
+      "id": "r_037",
+      "name": "DLP-Cloud Exfil-PII-Block",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "cloudexfil"
+      ],
+      "enforcement": "block",
+      "desc": "Microsoft Defender for Cloud Apps CASB \u2014 block PII to unsanctioned cloud apps",
+      "created": "2025-01-16T08:00:00.000Z"
+    },
+    {
+      "id": "r_038",
+      "name": "DLP-Cloud Exfil-PII-Monitor",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "cloudexfil"
+      ],
+      "enforcement": "monitor",
+      "desc": "Zscaler CASB \u2014 secondary cloud egress telemetry and anomaly detection",
+      "created": "2025-01-16T08:05:00.000Z"
+    },
+    {
+      "id": "r_039",
+      "name": "DLP-Cloud Exfil-Restricted-Block",
+      "classifIds": [
+        "restricted",
+        "supervisory"
+      ],
+      "classifId": "restricted",
+      "vectors": [
+        "cloudexfil"
+      ],
+      "enforcement": "block",
+      "desc": "Microsoft Defender for Cloud Apps \u2014 block all cloud egress for restricted and supervisory",
+      "created": "2025-01-16T08:10:00.000Z"
+    },
+    {
+      "id": "r_040",
+      "name": "DLP-Cloud Exfil-SourceCode-Block",
+      "classifIds": [
+        "sourcecode"
+      ],
+      "classifId": "sourcecode",
+      "vectors": [
+        "cloudexfil"
+      ],
+      "enforcement": "block",
+      "desc": "GitHub Advanced Security + CASB \u2014 block code to non-approved cloud destinations",
+      "created": "2025-01-16T08:15:00.000Z"
+    },
+    {
+      "id": "r_041",
+      "name": "DLP-Cloud Exfil-MultiClassification-Monitor",
+      "classifIds": [
+        "regulated",
+        "customer",
+        "internal"
+      ],
+      "classifId": "regulated",
+      "vectors": [
+        "cloudexfil"
+      ],
+      "enforcement": "monitor",
+      "desc": "Zscaler CASB \u2014 monitor regulated, customer, internal cloud activity; allow sanctioned SaaS",
+      "created": "2025-01-16T08:20:00.000Z"
+    },
+    {
+      "id": "r_042",
+      "name": "DLP-MultiChannel-Internal Data-Monitor",
+      "classifIds": [
+        "internal"
+      ],
+      "classifId": "internal",
+      "vectors": [
+        "proxy",
+        "webupload",
+        "cloudexfil"
+      ],
+      "enforcement": "monitor",
+      "desc": "Zscaler ZIA \u2014 monitor internal data across web egress channels, not blocked to allow ops",
+      "created": "2025-01-17T10:00:00.000Z"
+    },
+    {
+      "id": "r_043",
+      "name": "DLP-MultiChannel-Customer Data-Monitor",
+      "classifIds": [
+        "customer"
+      ],
+      "classifId": "customer",
+      "vectors": [
+        "email_net",
+        "email_ep",
+        "proxy"
+      ],
+      "enforcement": "monitor",
+      "desc": "Proofpoint + Zscaler \u2014 monitor customer data across comms channels, preserve legitimate customer contact",
+      "created": "2025-01-17T10:05:00.000Z"
+    },
+    {
+      "id": "r_044",
+      "name": "DLP-MultiChannel-Regulated-Monitor",
+      "classifIds": [
+        "regulated"
+      ],
+      "classifId": "regulated",
+      "vectors": [
+        "bluetooth",
+        "clipboard",
+        "printing"
+      ],
+      "enforcement": "monitor",
+      "desc": "Microsoft Purview + Symantec \u2014 monitor regulated data on local exfil channels",
+      "created": "2025-01-17T10:10:00.000Z"
+    },
+    {
+      "id": "r_045",
+      "name": "DLP-MultiChannel-Supervisory-Log",
+      "classifIds": [
+        "supervisory"
+      ],
+      "classifId": "supervisory",
+      "vectors": [
+        "email_net",
+        "email_ep",
+        "proxy",
+        "webupload"
+      ],
+      "enforcement": "log",
+      "desc": "Proofpoint + Zscaler \u2014 immutable logging of all supervisory data egress for regulatory evidence",
+      "created": "2025-01-17T10:15:00.000Z"
+    },
+    {
+      "id": "r_046",
+      "name": "DLP-MultiChannel-SourceCode-Monitor",
+      "classifIds": [
+        "sourcecode"
+      ],
+      "classifId": "sourcecode",
+      "vectors": [
+        "clipboard",
+        "printing",
+        "bluetooth"
+      ],
+      "enforcement": "monitor",
+      "desc": "Symantec DLP + CrowdStrike \u2014 monitor source code on local transfer channels",
+      "created": "2025-01-17T10:20:00.000Z"
+    },
+    {
+      "id": "r_047",
+      "name": "DLP-MultiChannel-PII-Log",
+      "classifIds": [
+        "pii"
+      ],
+      "classifId": "pii",
+      "vectors": [
+        "email_net",
+        "email_ep"
+      ],
+      "enforcement": "log",
+      "desc": "Proofpoint \u2014 immutable log of all PII in outbound email for compliance and legal hold",
+      "created": "2025-01-17T10:25:00.000Z"
+    },
+    {
+      "id": "r_048",
+      "name": "DLP-MultiChannel-Customer Data-Log",
+      "classifIds": [
+        "customer"
+      ],
+      "classifId": "customer",
+      "vectors": [
+        "email_net",
+        "email_ep",
+        "webupload"
+      ],
+      "enforcement": "log",
+      "desc": "Proofpoint + Zscaler \u2014 immutable log of all customer data egress; GLBA and SOX evidence",
+      "created": "2025-01-17T10:30:00.000Z"
+    },
+    {
+      "id": "r_049",
+      "name": "DLP-Copy/Paste-Customer Data-Monitor",
+      "classifIds": [
+        "customer"
+      ],
+      "classifId": "customer",
+      "vectors": [
+        "clipboard"
+      ],
+      "enforcement": "monitor",
+      "desc": "Symantec DLP endpoint \u2014 monitor clipboard for customer account data patterns",
+      "created": "2025-01-20T09:00:00.000Z"
+    },
+    {
+      "id": "r_050",
+      "name": "DLP-MultiChannel-Internal Data-Log",
+      "classifIds": [
+        "internal"
+      ],
+      "classifId": "internal",
+      "vectors": [
+        "removable",
+        "printing",
+        "fileshare"
+      ],
+      "enforcement": "log",
+      "desc": "Symantec DLP + Varonis \u2014 log internal data on physical channels; ops exempted from block",
+      "created": "2025-01-20T09:05:00.000Z"
+    },
+    {
+      "id": "r_051",
+      "name": "DLP-Email-Net-Internal Data-Monitor",
+      "classifIds": [
+        "internal"
+      ],
+      "classifId": "internal",
+      "vectors": [
+        "email_net",
+        "email_ep"
+      ],
+      "enforcement": "monitor",
+      "desc": "Proofpoint \u2014 monitor internal data in email; not blocked to preserve business ops and customer comms",
+      "created": "2025-01-20T09:10:00.000Z"
+    },
+    {
+      "id": "r_052",
+      "name": "DLP-Copy/Paste-Internal Data-Monitor",
+      "classifIds": [
+        "internal"
+      ],
+      "classifId": "internal",
+      "vectors": [
+        "clipboard",
+        "bluetooth"
+      ],
+      "enforcement": "monitor",
+      "desc": "CrowdStrike Falcon \u2014 telemetry on internal data clipboard and Bluetooth activity",
+      "created": "2025-01-20T09:15:00.000Z"
+    },
+    {
+      "id": "r_053",
+      "name": "DLP-Email-Net-SourceCode-Monitor",
+      "classifIds": [
+        "sourcecode"
+      ],
+      "classifId": "sourcecode",
+      "vectors": [
+        "email_net",
+        "email_ep"
+      ],
+      "enforcement": "monitor",
+      "desc": "Proofpoint \u2014 detect code file attachments and repo-pattern content in outbound email",
+      "created": "2025-01-20T09:20:00.000Z"
+    },
+    {
+      "id": "r_054",
+      "name": "DLP-Proxy-SourceCode-Monitor",
+      "classifIds": [
+        "sourcecode"
+      ],
+      "classifId": "sourcecode",
+      "vectors": [
+        "proxy"
+      ],
+      "enforcement": "monitor",
+      "desc": "Zscaler ZIA \u2014 inspect HTTP/S traffic for code patterns; block to non-GitHub destinations via CASB",
+      "created": "2025-01-20T09:25:00.000Z"
+    }
+  ]
+}
