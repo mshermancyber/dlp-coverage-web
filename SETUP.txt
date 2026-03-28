@@ -1,0 +1,203 @@
+================================================================================
+  DLP Coverage Web — BETA 3
+  Deployment Guide for Debian Docker Container on Arch Linux LXC (Proxmox)
+================================================================================
+
+PREREQUISITES
+-------------
+- Proxmox LXC running Arch Linux
+- Docker and Docker Compose installed
+- User (msherman) in the docker group
+- Files transferred to the LXC (e.g. /opt/services/dlp-coverage-web/)
+
+Files required in your deployment directory:
+  dlp-coverage-map.html
+  logo.png
+  Dockerfile
+  docker-compose.yml
+  nginx.conf
+  .dockerignore
+
+
+================================================================================
+  FIRST-TIME DEPLOYMENT
+================================================================================
+
+Step 1 — Transfer files to the LXC (run from your local machine)
+-----------------------------------------------------------------
+  scp dlp-coverage-map.html logo.png Dockerfile docker-compose.yml \
+      nginx.conf .dockerignore msherman@192.168.25.147:/opt/services/dlp-coverage-web/
+
+  Or if already SSH'd in, create the directory and paste/transfer files manually:
+  mkdir -p /opt/services/dlp-coverage-web
+  cd /opt/services/dlp-coverage-web
+
+
+Step 2 — Build and start the container
+---------------------------------------
+  cd /opt/services/dlp-coverage-web
+  docker compose up -d --build
+
+  This will:
+    - Pull debian:bookworm-slim from Docker Hub
+    - Install nginx inside the container
+    - Copy your app and nginx config in
+    - Start the container on port 8080
+
+
+Step 3 — Verify it's running
+------------------------------
+  docker compose ps
+  curl http://localhost:8080/health
+
+  Expected output from health check:  ok
+
+
+Step 4 — Access the app
+------------------------
+  From the LXC itself:      http://localhost:8080
+  From your local network:  http://192.168.25.147:8080
+
+
+================================================================================
+  TEARING DOWN AND REPLACING (after file updates)
+================================================================================
+
+Run these commands in order on the LXC:
+
+  cd /opt/services/dlp-coverage-web
+
+  # 1. Stop and remove the running container
+  docker compose down
+
+  # 2. Remove the old image so Docker doesn't use a cached layer
+  docker rmi dlp-coverage-web-dlp-coverage-web 2>/dev/null || \
+  docker rmi $(docker images --filter "reference=*dlp*" -q) 2>/dev/null || true
+
+  # 3. (From your local machine) Copy updated files to the LXC
+  #    Run this on your LOCAL machine, not on the LXC:
+  scp dlp-coverage-map.html msherman@192.168.25.147:/opt/services/dlp-coverage-web/
+
+  # 4. Back on the LXC — rebuild and restart
+  docker compose up -d --build
+
+  # 5. Confirm
+  docker compose ps
+  curl http://localhost:8080/health
+
+
+Quick one-liner (if only the HTML changed):
+  docker compose down && docker compose up -d --build
+
+
+================================================================================
+  USEFUL MANAGEMENT COMMANDS
+================================================================================
+
+View live logs:
+  docker compose logs -f
+
+Check container status:
+  docker compose ps
+
+Restart without rebuilding:
+  docker compose restart
+
+Stop without removing:
+  docker compose stop
+
+Remove everything (container + network, keeps image):
+  docker compose down
+
+Remove everything including the image:
+  docker compose down --rmi all
+
+Shell into the running container (for debugging):
+  docker exec -it dlp-coverage-map bash
+
+Check nginx config inside container:
+  docker exec dlp-coverage-map nginx -t
+
+View nginx access logs inside container:
+  docker exec dlp-coverage-map tail -f /var/log/nginx/access.log
+
+
+================================================================================
+  CHANGING THE PORT
+================================================================================
+
+Edit docker-compose.yml and change the ports line:
+
+  ports:
+    - "80:80"       # Use port 80 (requires root or CAP_NET_BIND_SERVICE)
+    - "8080:80"     # Default — use port 8080 (recommended)
+    - "3000:80"     # Custom port
+
+Then rebuild:
+  docker compose down && docker compose up -d --build
+
+
+================================================================================
+  PROXMOX-SPECIFIC NOTES
+================================================================================
+
+If Docker won't start or containers fail to run in the LXC:
+
+1. Enable Nesting in Proxmox web UI:
+   LXC container → Options → Features → check "Nesting"
+
+2. If using an unprivileged container and Docker still fails,
+   you may need to enable keyctl:
+   LXC container → Options → Features → check "keyctl"
+
+3. Confirm the docker group assignment:
+   groups msherman
+   # Should include 'docker'
+
+   If not:
+   sudo usermod -aG docker msherman
+   newgrp docker
+
+4. Confirm Docker is running:
+   systemctl status docker
+   # If not active:
+   sudo systemctl enable --now docker
+
+
+================================================================================
+  FILE DESCRIPTIONS
+================================================================================
+
+dlp-coverage-map.html   The complete self-contained application. Single file,
+                         no server-side dependencies. All JS, CSS, and the logo
+                         are embedded. ~1.4MB due to embedded base64 logo.
+
+logo.png                 Anonymous crest used as favicon and header logo.
+                         Already embedded in the HTML. Keep for reference.
+
+Dockerfile               Builds a debian:bookworm-slim image with nginx.
+                         Copies the HTML and nginx config in at build time.
+                         Final image is approximately 80MB.
+
+docker-compose.yml       Defines the service: port mapping, restart policy,
+                         and health check configuration.
+
+nginx.conf               Nginx server block: serves index.html, adds security
+                         headers, exposes /health endpoint, sets 1hr cache.
+
+.dockerignore            Excludes non-essential files from the build context
+                         (README, .git, etc.).
+
+
+================================================================================
+  LICENSE
+================================================================================
+
+DLP Coverage Web — BETA 3
+Copyright (C) 2025 Contributors
+
+GNU General Public License v3.0 or later
+https://www.gnu.org/licenses/gpl-3.0.txt
+SPDX-License-Identifier: GPL-3.0-or-later
+
+================================================================================
