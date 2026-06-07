@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+dist/
+
+# Git
+.git/
+.gitignore
+
+# Archive files (kept for reference, not needed in container)
+archive/
+assets/
+
+# Docs
+*.md
+LICENSE
+
+# IDE
+.idea/
+.vscode/
+
+# Release artifacts
+release/
