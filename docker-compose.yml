@@ -1,0 +1,14 @@
+services:
+  dlp-coverage-map:
+    build: .
+    container_name: dlp-coverage-map
+    ports:
+      - "8080:80"     # HTTP → redirects to 8443
+      - "8443:443"    # HTTPS
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fk", "https://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
